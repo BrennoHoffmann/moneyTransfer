@@ -11,9 +11,17 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        //get user data
         $get_user = Auth::user();
-        $user_id = $get_user->id;
-        $user = User::find($user_id);
-        return view('dashboard', compact('user'));
+        $payee = $get_user->id;
+        $user = User::find($payee);
+
+        //get all users
+        $users = User::all();
+        
+        //TODO - verificar utilidade
+        $count = Wallet::where('money', '>', 0)->count();
+
+        return view('dashboard', compact('user', 'users', 'count'));
     }
 }
