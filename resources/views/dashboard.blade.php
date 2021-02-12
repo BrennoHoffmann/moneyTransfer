@@ -10,10 +10,21 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     @if (!empty($user->wallet->money))
-                        Você tem: <strong> R$ {{ $user->wallet->money }} </strong>
+                        Você tem: 
+                        @if ($user->wallet->money >= 50)
+                            <strong> R$ {{ $user->wallet->money }} </strong>
+                        @endif
                     @else
                         Você ainda não possui saldo. Deseja depositar dinheiro?
                     @endif
+                    <br>
+                    @foreach($users as $user)
+                        @if ($user->user_type == 1)
+                            {{$user->name}}
+                        @else
+                            <strong>{{$user->user_type}}</strong> 
+                        @endif
+                    @endforeach
                 </div>
             </div>
         </div>
