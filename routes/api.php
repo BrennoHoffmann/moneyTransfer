@@ -22,9 +22,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get('list', [WalletController::class, 'list']);
 
-    Route::post('add', [WalletController::class, 'add']);
+    Route::post('create', [WalletController::class, 'create']);
 
     Route::put('update', [WalletController::class, 'update']);
+
+    Route::delete('delete/{id}', [WalletController::class, 'delete']);
 });
 
 

@@ -18,7 +18,7 @@ class WalletController extends Controller
         return Wallet::all();
     }
 
-    public function add(Request $req)
+    public function create(Request $req)
     {
         $validationRules = array(
             'payee' => 'required|min:1',
@@ -95,6 +95,18 @@ class WalletController extends Controller
                 $error = ["error" => "Não foi possivel completar esta operação"];
                 return response()->json($error, 401);
             }
+        }
+    }
+
+    public function delete($id){
+        $wallet = Wallet::find($id);
+        $result = $wallet->delete();
+        if($result){
+            $sucesso = ["sucesso" => "Carteira apagada"];
+            return response()->json($sucesso, 401);
+        }else{
+            $error = ["error" => "Transação não autorizada"];
+            return response()->json($error, 401);
         }
     }
 }
